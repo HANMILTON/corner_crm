@@ -1,6 +1,7 @@
 <template>
   <div class="pad">
     <div class="form-box">
+    <!-- {{imgArr}} -->
       <div class="no-img" v-if="!imgs">点击左下角上传图片(可多选)</div>
       <div class="img-list" v-else>
         <div class="img-box" v-for="(img,index) in imgArr">
@@ -92,7 +93,7 @@ export default {
   },
   data() {
     return {
-      imgArr:this.imgs && this.imgs.split(","),
+      imgArr:this.imgs ?  this.imgs.split(",") : [],
       fileId: "file"+Math.floor(Math.random()*1000),
       uploadServer,
       user_id: sessionStorage.getItem("user_id"),
@@ -103,7 +104,7 @@ export default {
     fileChange(e) {
       // return console.log(e.target.files)
       let imgs = Array.prototype.slice.call(e.target.files)
-      console.log(imgs)
+      // console.log(imgs)
       let len = imgs.length
       if(this.imgArr.length + len > 9){
         return alert("图片最多上传9张,请重新上传")
@@ -145,7 +146,7 @@ export default {
       tmpCtx.fillStyle = "#fff";
       tmpCtx.drawImage(img,0,0,img.width,img.height,0,0,canvas.width,canvas.height)
       let canvasStr = canvas.toDataURL("image/jpeg", 0.8)
-      console.log(canvasStr.length)
+      // console.log(canvasStr.length)
       return canvasStr;
     },  
     //将图片转化为blob对象,上传到服务器
@@ -177,7 +178,7 @@ export default {
       this.$emit("update:imgs","")
     },
     upload(formData) {
-      console.log(formData)
+      // console.log(formData)
       pkFetch.postFile(this.uploadServer, formData)
       .then(res => this.uploadSuccess(res))
     },

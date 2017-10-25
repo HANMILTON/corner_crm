@@ -3,13 +3,12 @@
 	<div v-if="showList">
 		<div class="header">
 			<h3 class="header-prompt">餐厅列表</h3>
-			<!-- <button class="btn btn-primary" @click="showList=false,selectData={}">新增餐厅</button> -->
+			<button class="btn btn-primary" @click="addShop">新增餐厅</button>
 		</div>
 	    <el-tabs v-model="selectedId">
         <el-tab-pane :label="data.text" v-for="(data,index) in selectList"  @click='selectedId = String(index)' :name="String(index)"></el-tab-pane>
       	</el-tabs>
 	    <div class="wrap"></div>
-	    <!-- <div>{{button()}}</div> -->
 		<pk-table :data="shopList" @trclick='tableClick' :option="shopOpts"></pk-table>		
 		<div class="text-center" v-if="pageCount>1">
 			<el-pagination
@@ -22,7 +21,8 @@
 	        </el-pagination>			
 		</div>
 	</div>
-	<shop-edit v-else :show.sync="showList" :id="selectData"></shop-edit>
+	<shop-edit v-else :show.sync="showList" :id="selectData" :refresh.sync="refreshList"></shop-edit>
+	<shop-panel v-if="showPanel" :show.sync="showPanel" :refresh.sync="refreshList"></shop-panel>
 	</div>
 </template>
 <script>
@@ -33,13 +33,15 @@
 		pkTable
 	}from "pk"
 	import{
-		userService
+		userShopService
 	}from "api"
 	import shopEdit from "./shopEdit"
+	import shopPanel from "./shopPanel"
 	export default{
 		components:{
 			pkTable,
-			shopEdit
+			shopEdit,
+			shopPanel
 		},
 		data(){
 			return{
@@ -47,7 +49,6 @@
 				shopOpts,
 				selectList:[{text:"未上线",value:0},{text:"已上线",value:1}],
 				shopList:[],
-				world:123,
 				serachObj:{
 					page:1,
 					per_page:8,
@@ -55,17 +56,21 @@
 					is_online: 0
 				},
 				pageCount: 0,
-				selectData:{},
+				selectData:"",
+				showPanel: false,
 				showList:true,
 				refreshList: 0
 			}
 		},
 		methods:{
+			addShop(){
+				this.showPanel = true
+			},
 			handleCurrentChange(){
 				this.refreshList++
 			},			
 			getShopList(){
-				userService.getShopList(this.serachObj)
+				userShopService.getShopList(this.serachObj)
 					.then((data) => {
 						if(data.code == 200){
 							this.pageCount = data.data.page_count	
@@ -84,15 +89,15 @@
 				this.showList = false
 			},
 			showUp(row){
-				userService.shopOnline(row.id,1)
+				userShopService.shopOnline(row.id,1)
 				.then(res => this.updateList(res))
 			},
 			showDown(row){
-				userService.shopOnline(row.id,0)
+				userShopService.shopOnline(row.id,0)
 				.then(res => this.updateList(res))
 			},
 			showDelete(row){
-				userService.shopDelete(row.id)
+				userShopService.shopDelete(row.id)
 				.then(res => this.updateList(res))
 			},
 			// searchStatus(data,index){
@@ -121,7 +126,6 @@
 <style scoped>
 	.header{
 		padding: 20px 0;
-		overflow: hidden;
 	}
 	.header-prompt{
 		width: 80%;

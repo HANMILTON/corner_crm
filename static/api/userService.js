@@ -17,11 +17,7 @@ export default {
     })
       .then(res => res)
   } ,
-  // 退出登录
-  logout(){
-    return pkFetch.get(`${userServer}/logout`)
-    .then(res => res)
-  },
+
   //获取场景列表
   getSceneList(serachObj){
     return pkFetch.post(`${userServer}/scene_list`,serachObj)

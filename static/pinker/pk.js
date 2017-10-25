@@ -7,6 +7,5 @@ export const pkTable = require('./pkTable') // 表格模块
 export const modal = require('./modal') // 弹框
 export const pkEditor = require('./pkEditor') // 编辑器模块
 export const pkSearch = require('./pkSearch') // 编辑器模块
-export const pkEditor1 = require('./pkEditor1') // 编辑器模块
 export const pkMultiImgs = require('./pkMultiImgs') // 编辑器模块
 export const pkDateTime = require('./pkDateTime') // 日期模块

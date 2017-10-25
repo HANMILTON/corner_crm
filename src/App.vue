@@ -17,7 +17,8 @@
 </template>
 <script>
 import {
-  userService
+  userService,
+  indexService
 } from 'api'
 import{
   pkAlert
@@ -43,7 +44,7 @@ export default {
   },
   methods:{
     logOut(){
-      userService.logout()
+      indexService.logout()
         .then(res => {
           if(res.code == 200){
             this.$router.push('/login')

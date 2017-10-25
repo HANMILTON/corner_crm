@@ -9,16 +9,17 @@ import newsList from '@/views/news/newsList'
 import bannerList from '@/views/banner/bannerList'
 import userList from '@/views/user/userList'
 import finance from '@/views/finance/financePanel'
+import shopAddList from '@/views/shopAdd/shopAddList'
 export default [
   {
-  path: '/',
-  name: '/',
-  component: checkList,
+    path: '/',
+    name: '/',
+    component: checkList,
   } ,
   {
-	path: '/checkList',
-  name: 'checkList',
-  component: checkList,
+  	path: '/checkList',
+    name: 'checkList',
+    component: checkList,
   } ,   
   {
     	path: '/sceneList',
@@ -69,5 +70,10 @@ export default [
       path: '/finance',
       name: 'finance',
       component: finance,
-  }      
+  } ,
+  {
+      path: '/shopAddList',
+      name: 'shopAddList',
+      component: shopAddList,
+  }       
 ]

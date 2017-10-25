@@ -12,5 +12,10 @@ export default {
   checkHasLogin(){
     return pkFetch.post(`${indexServer}/check_has_login`)
       .then(res => res)  	
-  }
+  },
+    // 退出登录
+  logout(){
+    return pkFetch.get(`${indexServer}/logout`)
+    .then(res => res)
+  },
 }

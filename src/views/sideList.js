@@ -1,4 +1,6 @@
-export const mainSide =  [{
+
+const type = sessionStorage.getItem("user_type")
+const sideList1 = [{
     title: '审核列表',
     path: 'checkList',
   }, {
@@ -32,4 +34,10 @@ export const mainSide =  [{
     title: '财务统计',
     path: 'finance'
   }]
+const sideList2 = [{
+    title: '餐厅列表',
+    path: 'shopAddList',
+  }]  
+
+export const mainSide = type == 3 ? sideList2 :sideList1
 

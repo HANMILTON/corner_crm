@@ -1,7 +1,7 @@
 require('es6-promise').polyfill()
 require('isomorphic-fetch')
 export const pkFetch = {
-  checkStatus(res) {
+  checkStatus:function(res) {
     if (res.ok) {
       return res
     } else {
@@ -11,33 +11,33 @@ export const pkFetch = {
       }())
     }
   },
-  formatParams(params) {
+  formatParams:function(params) {
     let query = []
     for (let i in params) {
       query.push(`${i}=${encodeURIComponent(params[i])}`)
     }
     return query.join('&')
   },
-  createformData(params) {
+  createformData:function(params) {
     let fd = new FormData()
     for (let i in params) {
       fd.append(i, params[i])
     }
     return fd
   },
-  log(json) {
+  log:function(json) {
     if(json.code !=200 && json.code !=299 && json.code !=210) bus.$emit("showAlert",json.msg,"warning")
     console.info(`fetch原始数据`, json)
     return json
   },
-  get(url, params) {
+  get:function(url, params) {
     console.info('GET请求数据 参数', params, `请求地址${url}`)
     return window.fetch(url + '?' + this.formatParams(params),{credentials: 'include'})
       .then(this.checkStatus)
       .then(res => res.json())
       .then(this.log)
   },
-  post(url, params) {
+  post:function(url, params) {
     console.info('POST请求数据 参数', params, `请求地址${url}`)
     return window.fetch(url, {
         credentials: 'include',
@@ -52,7 +52,7 @@ export const pkFetch = {
       .then(res => res.json())
       .then(this.log)
   },
-  postFile(url, params) {
+  postFile:function(url, params) {
     console.info('POST上传文件数据 参数', params, `请求地址${url}`)
     return window.fetch(url, {
         method: 'POST',
@@ -65,7 +65,7 @@ export const pkFetch = {
       .then(res => res.json())
       .then(this.log)
   },
-  delete(url, params) {
+  delete:function(url, params) {
     url += '?_method=DELETE'
     console.info('POST模拟DELETE请求数据 参数', params, `请求地址${url}`)
     return window.fetch(url, {

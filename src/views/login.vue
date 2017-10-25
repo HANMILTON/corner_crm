@@ -27,10 +27,10 @@ export default {
   components:{
     pkInput
   },
-  data () {
+  data(){
     return {
       name: '拼客后台',
-      loginData:{},
+      loginData: {},
       showLogin: false
     }
   },
@@ -45,9 +45,15 @@ export default {
         sessionStorage.setItem("isLogin",1)
         sessionStorage.setItem("user_id",data.id)
         sessionStorage.setItem("upload_validate_str",data.upload_validate_str)
-        this.$parent.isLogin = 1
-        this.$router.push('/checkList')
-        bus.$emit("showAlert",res.msg)
+        sessionStorage.setItem("user_type",data.user_type)
+        // this.$parent.isLogin = 1
+        if(data.user_type == "3"){
+          this.$router.push('/shopAddList')
+        }else{
+          this.$router.push('/checkList')
+        }
+        location.reload()
+        // bus.$emit("showAlert",res.msg)
       }else if(res.code == 299){
         this.showLogin = true
       }

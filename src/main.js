@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
+import 'babel-polyfill'
 Vue.use(ElementUI)
 // Vue.use(VueAsyncData)
 Vue.config.productionTip = false
