@@ -104,6 +104,9 @@
 			  		that.sendFile(files[0])
 			  	},
 			  	onChange: function(contents){
+			  		if(!contents){
+			  			return that.$emit("update:html",contents)
+			  		}
 			  		if(contents.indexOf("viewport") == -1){
 			  			contents += "<head><meta charset='utf-8'><title>corner-crm</title><meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no' /></head><style>body{margin:8px;-webkit-overflow-scrolling: touch;}p{margin:0;padding:0}body img{max-width:100%}</style>"
 			  		}

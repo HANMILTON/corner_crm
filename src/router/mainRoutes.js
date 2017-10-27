@@ -10,6 +10,7 @@ import bannerList from '@/views/banner/bannerList'
 import userList from '@/views/user/userList'
 import finance from '@/views/finance/financePanel'
 import shopAddList from '@/views/shopAdd/shopAddList'
+import pushList from '@/views/push/pushList'
 export default [
   {
     path: '/',
@@ -75,5 +76,10 @@ export default [
       path: '/shopAddList',
       name: 'shopAddList',
       component: shopAddList,
-  }       
+  } ,
+  {
+      path: '/pushList',
+      name: 'pushList',
+      component: pushList,
+  }         
 ]

@@ -233,5 +233,28 @@ export default {
         order_id_list,shop_detail_id
       })
       .then(res => res) 
+    },
+    //管理员整站推送信息
+    //新增、修改
+    pushSubmit(pushObj){
+      return pkFetch.post(`${userServer}/push_submit`,pushObj)
+      .then(res => res) 
+    },
+    //信息列表
+    getPushList(searchObj){
+      return pkFetch.post(`${userServer}/push_list`,searchObj)
+      .then(res => res)
+    },
+    getPushDetail(push_id){
+      return pkFetch.post(`${userServer}/push_row`,{push_id})
+      .then(res => res)
+    },
+    pushOnline(push_id,is_online){
+      return pkFetch.post(`${userServer}/push_set_is_online`,{push_id,is_online})
+      .then(res => res)
+    },
+    pushDelete(push_id){
+      return pkFetch.post(`${userServer}/push_row_delete`,{push_id})
+      .then(res => res)
     }
 }

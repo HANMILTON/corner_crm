@@ -1,4 +1,3 @@
-
 const type = sessionStorage.getItem("user_type")
 const sideList1 = [{
     title: '审核列表',
@@ -30,6 +29,9 @@ const sideList1 = [{
   }, {
     title: 'banner列表',
     path: 'bannerList'
+  }, {
+    title: '推送列表',
+    path: 'pushList'
   }, {
     title: '财务统计',
     path: 'finance'

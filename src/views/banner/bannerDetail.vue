@@ -78,7 +78,6 @@ export default{
     }else{
       this.bannerData.banner_id = 0
     }
-    this.bannerData.banner_img = "http://img.findfit.cn/Uploads/shop/2017-10-20/banner.png"
     userService.bannerSubmit(this.bannerData)
     .then(res => this.submitSuccess(res))
    },
