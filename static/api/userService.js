@@ -127,6 +127,8 @@ export default {
         return pkFetch.post(`${userServer}/shop_recommend_delete`,{recommend_id})
       .then(res => res)
    },
+
+   //<--------------------------------------------------- 用户爱好 --------------------------------------------------->
    //兴趣爱好列表
    getHobbyList(){
         return pkFetch.post(`${userServer}/app_user_hobby_list`)
@@ -140,6 +142,22 @@ export default {
    // 兴趣爱好删除
    userHobbyDelete(hobby_id){
       return pkFetch.post(`${userServer}/app_user_hobby_del`,{hobby_id})
+      .then(res => res)
+   },
+   //<--------------------------------------------------- 商家风格 --------------------------------------------------->
+   //兴趣爱好列表
+   getStyleList(){
+        return pkFetch.post(`${userServer}/shop_style_list`)
+      .then(res => res)
+   },
+   // 兴趣爱好提交
+   styleSubmit(hobby_obj){
+      return pkFetch.post(`${userServer}/shop_style_submit`,hobby_obj)
+      .then(res => res)
+   },
+   // 兴趣爱好删除
+   styleDelete(style_id){
+      return pkFetch.post(`${userServer}/shop_style_del`,{style_id})
       .then(res => res)
    },
    // 获取管理员列表

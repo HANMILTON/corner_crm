@@ -4,10 +4,10 @@
       <h1>{{ name }}</h1>
       <form class="form-box">
         <div class="control-group">
-           <input type="text" class="form-control" v-model="loginData.user_name" placeholder="邮箱/手机号">
+           <input type="text" class="form-control" @keyup.enter="login" v-model="loginData.user_name" placeholder="邮箱/手机号">
         </div>
         <div class="control-group">
-           <input type="password" class="form-control" v-model="loginData.password" placeholder="密码">
+           <input type="password" class="form-control" @keyup.enter="login" v-model="loginData.password" placeholder="密码">
         </div>
         <div class="control-group">
            <button type="button" class="btn btn-primary btn-full" @click="login">登录</button>

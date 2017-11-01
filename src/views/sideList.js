@@ -21,6 +21,9 @@ const sideList1 = [{
     title: '兴趣列表',
     path: 'hobbyList',
   }, {
+    title: '风格列表',
+    path: 'styleList',
+  }, {
     title: '管理员列表',
     path: 'adminList',
   }, {

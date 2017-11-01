@@ -68,7 +68,8 @@
 					page: 1,
 					per_page: 10,
 					status: 1,
-					is_online: -1
+					is_online: -1,
+					push_type:3
 				},
 				pageCount: 0,
 				selectData:{},

@@ -41,12 +41,19 @@
     	<pk-input sm="10" label="用户爱好">
 	    	<div class="hobbyBox border">
 		    	<div v-for="(data,index) in hobbyList" class="hobbyList col-sm-3">
-		    		<div :class="{'hobby':true,'select': data.checked == true}" @click="setSelect(index)">{{data.hobby_name}}</div>
+		    		<div :class="{'hobby':true,'select': data.checked == true}" @click="setSelect(1,index)">{{data.hobby_name}}</div>
 		    		<!-- <input type="hidden" v-model="data.checked" :value="true" name=""> -->
 		    	</div>     		
 	    	</div>    	
     	</pk-input>
-
+    	<pk-input sm="10" label="商家风格">
+	    	<div class="hobbyBox border">
+		    	<div v-for="(data,index) in styleList" class="hobbyList col-sm-3">
+		    		<div :class="{'hobby':true,'select': data.checked == true}" @click="setSelect(2,index)">{{data.style_name}}</div>
+		    		<!-- <input type="hidden" v-model="data.checked" :value="true" name=""> -->
+		    	</div>     		
+	    	</div>    	
+    	</pk-input>
     	<div class="col-sm-12 pad-top pad-bot">
     		<button class="btn btn-primary" @click="submit">提交</button>
     	</div>	
@@ -70,7 +77,7 @@ import Vue from 'vue'
 		},
 		data(){
 			return {
-				value9: "",
+				styleList:[],
 				hobbyList: [],
 				editData: this.data.taste_hobby ? this.data.taste_hobby : {},
 				taste_1: this.data.taste_hobby ? [Number(this.data.taste_hobby.taste_1_s),Number(this.data.taste_hobby.taste_1_l)] : [0,0],
@@ -156,12 +163,20 @@ import Vue from 'vue'
 						arr.push(data.id)
 					}
 				})
-				if(this.editData)
+				this.editData.hobby_list = arr.join()
+				let arr2 = []
+				this.styleList.forEach(data =>{
+					if(data.checked){
+						arr2.push(data.id)
+					}
+				})
+				this.editData.style_list = arr2.join()
+				// if(this.editData)
 				for(let i=1;i<5;i++){
 					this.editData['taste_'+i+'_s'] = this['taste_'+i][0]
 					this.editData['taste_'+i+'_l'] = this['taste_'+i][1]
 				}
-				this.editData.hobby_list = arr.join()
+
 				this.editData.shop_detail_id = this.data.id
 				// return console.log(this.editData)
 				userShopService.tasteHobbySubmit(this.editData)
@@ -169,28 +184,57 @@ import Vue from 'vue'
 					bus.$emit("showAlert",res.msg)
 				})
 			},
-			setSelect(index){
-				let obj = this.hobbyList[index]
-				obj.checked = !this.hobbyList[index].checked
-				Vue.set(this.hobbyList,index,obj)
+			setSelect(flag,index){
+				if(flag == 1){
+					let obj = this.hobbyList[index]
+					obj.checked = !this.hobbyList[index].checked
+					Vue.set(this.hobbyList,index,obj)					
+				}else{
+					let obj = this.styleList[index]
+					obj.checked = !this.styleList[index].checked
+					Vue.set(this.styleList,index,obj)	
+				}
+
+			},
+			setHobby(){
+				let hobbyListArr = this.editData.hobby_list ? this.editData.hobby_list.split(",") : []
+				userShopService.getHobbyList()
+				.then(res => {
+					if(res.code==200){
+						let hobbyArr = res.data
+						hobbyArr.forEach(data => {
+							if(hobbyListArr.indexOf(data.id)!=-1){
+								data.checked = true
+							}else{
+								data.checked = false
+							}
+						})
+						this.hobbyList = hobbyArr;
+					}
+				})
+			},
+			setStyle(){
+				let styleListArr = this.editData.style_list ? this.editData.style_list.split(",") : []
+				userShopService.getStyleList()
+				.then(res => {
+					if(res.code==200){
+						let styleArr = res.data
+						styleArr.forEach(data => {
+							if(styleListArr.indexOf(data.id)!=-1){
+								data.checked = true
+							}else{
+								data.checked = false
+							}
+						})
+						this.styleList = styleArr;
+					}
+				})
 			}
+
 		},
 		mounted(){
-			let hobbyListArr = this.editData.hobby_list ? this.editData.hobby_list.split(",") : []
-			userShopService.getHobbyList()
-			.then(res => {
-				if(res.code==200){
-					let hobbyArr = res.data
-					hobbyArr.forEach(data => {
-						if(hobbyListArr.indexOf(data.id)!=-1){
-							data.checked = true
-						}else{
-							data.checked = false
-						}
-					})
-					this.hobbyList = hobbyArr;
-				}
-			})
+			this.setHobby()
+			this.setStyle()
 		}
 	}
 </script>

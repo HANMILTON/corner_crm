@@ -4,6 +4,7 @@ import labelList from '@/views/label/labelList'
 import orderList from '@/views/order/orderList'
 import shopList from '@/views/shop/shopList'
 import hobbyList from '@/views/hobby/hobbyList'
+import styleList from '@/views/style/styleList'
 import adminList from '@/views/admin/adminList'
 import newsList from '@/views/news/newsList'
 import bannerList from '@/views/banner/bannerList'
@@ -47,6 +48,11 @@ export default [
       name: 'hobbyList',
       component: hobbyList,
   } ,
+  {
+      path: '/styleList',
+      name: 'styleList',
+      component: styleList,
+  } ,  
   {
       path: '/adminList',
       name: 'adminList',

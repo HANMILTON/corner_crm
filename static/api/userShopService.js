@@ -88,6 +88,11 @@ export default {
         return pkFetch.post(`${userServer}/app_user_hobby_list`)
       .then(res => res)
    },
+   //兴趣爱好列表
+   getStyleList(){
+        return pkFetch.post(`${userServer}/shop_style_list`)
+      .then(res => res)
+   },   
    // 兴趣爱好提交
    userHobbySubmit(hobby_obj){
       return pkFetch.post(`${userServer}/app_user_hobby_submit`,hobby_obj)
